@@ -152,7 +152,7 @@ public class FileAnalyzerTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             String path = null;
             String word = "duck";
-            fileAnalyzer.analyzeContent(word, path);
+            fileAnalyzer.analyze(word, path);
         });
     }
 
@@ -162,7 +162,7 @@ public class FileAnalyzerTest {
         Assertions.assertThrows(NullPointerException.class, () -> {
             String path = "src/main/resources/content.txt";
             String word = null;
-            fileAnalyzer.analyzeContent(word, path);
+            fileAnalyzer.analyze(word, path);
         });
     }
 
@@ -175,7 +175,7 @@ public class FileAnalyzerTest {
         int expectedCount = 3;
         List<String> expectedSentences = List.of("duck tried to kill hunter.", "it was a very angry duck.", "was duck.");
 
-        FileInformation result = fileAnalyzer.analyzeContent(path, word);
+        FileInformation result = fileAnalyzer.analyze(path, word);
 
         int actualCount = result.getCount();
         List<String> actualSentences = result.getSentences();
@@ -194,7 +194,7 @@ public class FileAnalyzerTest {
         int expectedCount = 0;
         List<String> expectedSentences = Collections.emptyList();
 
-        FileInformation result = fileAnalyzer.analyzeContent(path, word);
+        FileInformation result = fileAnalyzer.analyze(path, word);
 
         int actualCount = result.getCount();
         List<String> actualSentences = result.getSentences();
