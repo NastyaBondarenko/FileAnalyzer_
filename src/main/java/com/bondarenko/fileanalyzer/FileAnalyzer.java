@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class FileAnalyzer {
     private static final Pattern SENTENCE_PATTERN = Pattern.compile("((?<=[.?!]))");
 
-    public FileInformation analyzeContent(String path, String word) {
+    public FileInformation analyze(String path, String word) {
         validatePath(path);
         validateWord(word);
 
