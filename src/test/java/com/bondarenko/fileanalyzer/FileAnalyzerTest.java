@@ -186,7 +186,7 @@ public class FileAnalyzerTest {
     }
 
     @Test
-    @DisplayName("test Analyze Content when Searched Word Is Existing In Content")
+    @DisplayName("test Analyze Content when Searched Word Is Not Exist In Content")
     public void testAnalyzeContent_whenSearchedWordIsNotExistInContent() {
         String path = "src/main/resources/content.txt";
         String word = "notExistWord";
