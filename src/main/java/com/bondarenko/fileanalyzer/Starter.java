@@ -11,7 +11,7 @@ public class Starter {
         String path = args[0];
         String word = args[1];
 
-        FileInformation fileInformation = fileAnalyzer.analyzeContent(path, word);
+        FileInformation fileInformation = fileAnalyzer.analyze(path, word);
         System.out.println(fileAnalyzer.formatResult(fileInformation));
     }
 }
