@@ -1,4 +1,4 @@
-package com.bondarenko.fileanalyzer;
+package com.bondarenko.fileinformation;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ public class FileInformation {
     private String word;
     private List<String> sentences;
 
-    FileInformation(String word, List<String> sentences, int count) {
+    public FileInformation(String word, List<String> sentences, int count) {
         this.word = word;
         this.sentences = sentences;
         this.count = count;
