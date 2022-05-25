@@ -53,11 +53,12 @@ public class StreamFileAnalyzer implements FileAnalyzer {
 
     @Override
     public int countWords(List<String> filteredSentences, String word) {
-        return (int) filteredSentences.stream()
+        return (filteredSentences.stream()
                 .map(line -> line.split("\\s+"))
                 .flatMap(Arrays::stream)
                 .filter(sentence -> sentence.contains(word))
-                .count();
+                .map(e -> 1)
+                .reduce(0, Integer::sum));
     }
 
     public String formatResult(FileInformation result) {
