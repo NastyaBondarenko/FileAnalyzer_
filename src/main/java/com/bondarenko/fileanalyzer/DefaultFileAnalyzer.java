@@ -1,4 +1,4 @@
-package com.bondarenko.fileanalyzer.defaultfileanalyzer;
+package com.bondarenko.fileanalyzer;
 
 import com.bondarenko.fileanalyzer.FileAnalyzer;
 import com.bondarenko.fileinformation.FileInformation;
