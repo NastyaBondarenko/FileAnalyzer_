@@ -1,6 +1,5 @@
 package com.bondarenko.fileanalyzer;
 
-import com.bondarenko.fileanalyzer.FileAnalyzer;
 import com.bondarenko.fileinformation.FileInformation;
 
 import java.io.File;
@@ -45,16 +44,16 @@ public class StreamFileAnalyzer implements FileAnalyzer {
     }
 
     @Override
-    public List<String> filter(List<String> sentences, String word) {
-        return sentences.stream().
+    public List<String> filter(List<String> filteredSentences, String word) {
+        return filteredSentences.stream().
                 map(String::toLowerCase).
-                filter(text -> text.contains(word)).
+                filter(sentences -> sentences.contains(word)).
                 collect(Collectors.toList());
     }
 
     @Override
-    public int countWords(List<String> text, String word) {
-        return (int) text.stream()
+    public int countWords(List<String> sentences, String word) {
+        return (int) sentences.stream()
                 .map(line -> line.split("\\s+"))
                 .flatMap(Arrays::stream)
                 .filter(t -> t.contains(word))
