@@ -44,19 +44,19 @@ public class StreamFileAnalyzer implements FileAnalyzer {
     }
 
     @Override
-    public List<String> filter(List<String> filteredSentences, String word) {
-        return filteredSentences.stream().
+    public List<String> filter(List<String> sentences, String word) {
+        return sentences.stream().
                 map(String::toLowerCase).
-                filter(sentences -> sentences.contains(word)).
+                filter(sentence -> sentence.contains(word)).
                 collect(Collectors.toList());
     }
 
     @Override
-    public int countWords(List<String> sentences, String word) {
-        return (int) sentences.stream()
+    public int countWords(List<String> filteredSentences, String word) {
+        return (int) filteredSentences.stream()
                 .map(line -> line.split("\\s+"))
                 .flatMap(Arrays::stream)
-                .filter(t -> t.contains(word))
+                .filter(sentence -> sentence.contains(word))
                 .count();
     }
 
