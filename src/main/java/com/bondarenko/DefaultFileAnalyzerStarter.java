@@ -1,6 +1,6 @@
 package com.bondarenko;
 
-import com.bondarenko.fileanalyzer.defaultfileanalyzer.DefaultFileAnalyzer;
+import com.bondarenko.fileanalyzer.DefaultFileAnalyzer;
 import com.bondarenko.fileinformation.FileInformation;
 
 public class DefaultFileAnalyzerStarter {
