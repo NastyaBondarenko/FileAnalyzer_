@@ -1,6 +1,5 @@
 package com.bondarenko.fileanalyzer;
 
-import com.bondarenko.fileanalyzer.FileAnalyzer;
 import com.bondarenko.fileinformation.FileInformation;
 
 import java.io.File;
@@ -61,10 +60,10 @@ public class DefaultFileAnalyzer implements FileAnalyzer {
     }
 
     @Override
-    public int countWords(List<String> text, String word) {
+    public int countWords(List<String> filteredSentences, String word) {
         Pattern pattern = Pattern.compile("\\b" + word + "\\b");
         int count = 0;
-        for (String sentences : text) {
+        for (String sentences : filteredSentences) {
             Matcher matcher = pattern.matcher(sentences);
             while (matcher.find()) {
                 count++;
