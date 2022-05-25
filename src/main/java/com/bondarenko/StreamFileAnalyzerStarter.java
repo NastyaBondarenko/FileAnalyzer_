@@ -1,6 +1,6 @@
 package com.bondarenko;
 
-import com.bondarenko.fileanalyzer.streamfileanalyzer.StreamFileAnalyzer;
+import com.bondarenko.fileanalyzer.StreamFileAnalyzer;
 import com.bondarenko.fileinformation.FileInformation;
 
 public class StreamFileAnalyzerStarter {
