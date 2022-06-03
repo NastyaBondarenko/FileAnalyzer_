@@ -1,6 +1,6 @@
 package com.bondarenko.fileanalyzer;
 
-import com.bondarenko.fileinformation.FileInformation;
+import com.bondarenko.fileinformation.ContentInformation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,11 +10,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class AbstractFileAnalyzerTest {
-    FileAnalyzer fileAnalyzer = getFileAnalyzer();
+public class StreamContentAnalyzerTest {//extends AbstractContentAnalyzerTest
+//    @Override
+//    ContentAnalyzer getFileAnalyzer() {
+//        return new StreamContentAnalyzer();
+//    }
 
-    abstract FileAnalyzer getFileAnalyzer();
-
+    StreamContentAnalyzer streamContentAnalyzer = new StreamContentAnalyzer();
     String content = "Listen!One day!What happened?A duck tried to kill a hunter.It was a very angry duck.It was a duck.";
     String path = "src/test/resources/content.txt";
 
@@ -22,7 +24,7 @@ public abstract class AbstractFileAnalyzerTest {
     @DisplayName("test Read Content")
     public void testReadContent() {
         String expectedResult = content;
-        String actualResult = fileAnalyzer.readContent(path);
+        String actualResult = streamContentAnalyzer.readContent(path);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -31,7 +33,7 @@ public abstract class AbstractFileAnalyzerTest {
     @DisplayName("test Split Into Sentences")
     public void testSplitIntoSentences_WithValidSeparators() {
         List<String> expectedResult = List.of("Listen!", "One day!", "What happened?", "A duck tried to kill a hunter.", "It was a very angry duck.", "It was a duck.");
-        List<String> actualResult = fileAnalyzer.splitIntoSentences(content);
+        List<String> actualResult = streamContentAnalyzer.splitIntoSentences(content);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -42,7 +44,7 @@ public abstract class AbstractFileAnalyzerTest {
         String content = "Listen<>One day$ What happened;duck tried to kill hunter;It was a very angry duck#It was a duck@";
 
         List<String> expectedResult = List.of(content);
-        List<String> actualResult = fileAnalyzer.splitIntoSentences(content);
+        List<String> actualResult = streamContentAnalyzer.splitIntoSentences(content);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -53,7 +55,7 @@ public abstract class AbstractFileAnalyzerTest {
         String content = "Just content";
 
         List<String> expectedResult = List.of(content);
-        List<String> actualResult = fileAnalyzer.splitIntoSentences(content);
+        List<String> actualResult = streamContentAnalyzer.splitIntoSentences(content);
 
         assertEquals(expectedResult, actualResult);
     }
@@ -65,7 +67,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?", "duck tried to kill hunter.", "It was a very angry duck.", "It was a duck.");
 
         List<String> expectedSentences = List.of("duck tried to kill hunter.", "it was a very angry duck.", "it was a duck.");
-        List<String> actualSentences = fileAnalyzer.filter(initialSentences, word);
+        List<String> actualSentences = streamContentAnalyzer.filter(initialSentences, word);
 
         assertEquals(expectedSentences, actualSentences);
     }
@@ -76,7 +78,7 @@ public abstract class AbstractFileAnalyzerTest {
         String word = "duck";
 
         List<String> initialSentences = Collections.emptyList();
-        List<String> actualSentences = fileAnalyzer.filter(initialSentences, word);
+        List<String> actualSentences = streamContentAnalyzer.filter(initialSentences, word);
 
         assertEquals(initialSentences, actualSentences);
     }
@@ -88,7 +90,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?", "duck tried to kill hunter.", "It was a very angry duck.", "Was duck.");
 
         List<String> expectedSentences = Collections.emptyList();
-        List<String> actualSentences = fileAnalyzer.filter(initialSentences, word);
+        List<String> actualSentences = streamContentAnalyzer.filter(initialSentences, word);
 
         assertEquals(expectedSentences, actualSentences);
     }
@@ -100,7 +102,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?", "duck tried to kill hunter.");
 
         int expectedCount = 1;
-        int actualCount = fileAnalyzer.countWords(initialSentences, word);
+        int actualCount = streamContentAnalyzer.countWords(initialSentences, word);
 
         assertEquals(expectedCount, actualCount);
     }
@@ -112,7 +114,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?");
 
         int expectedCount = 0;
-        int actualCount = fileAnalyzer.countWords(initialSentences, word);
+        int actualCount = streamContentAnalyzer.countWords(initialSentences, word);
 
         assertEquals(expectedCount, actualCount);
     }
@@ -124,7 +126,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?", "duck tried to kill hunter.", "It was a very angry duck.", "Was duck.");
 
         int expectedCount = 3;
-        int actualCount = fileAnalyzer.countWords(initialSentences, word);
+        int actualCount = streamContentAnalyzer.countWords(initialSentences, word);
 
         assertEquals(expectedCount, actualCount);
     }
@@ -136,7 +138,7 @@ public abstract class AbstractFileAnalyzerTest {
         List<String> initialSentences = List.of("Listen", "One day!", "What happened?", "Duck tried to kill hunter.", "It was a very angry Duck.", "Was Duck.");
 
         int expectedCount = 0;
-        int actualCount = fileAnalyzer.countWords(initialSentences, word);
+        int actualCount = streamContentAnalyzer.countWords(initialSentences, word);
 
         assertEquals(expectedCount, actualCount);
     }
@@ -147,7 +149,7 @@ public abstract class AbstractFileAnalyzerTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             String path = null;
             String word = "duck";
-            fileAnalyzer.analyze(word, path);
+            streamContentAnalyzer.analyze(word, path);
         });
     }
 
@@ -156,7 +158,7 @@ public abstract class AbstractFileAnalyzerTest {
     public void whenAnalyzeFileWithNotExistingSearchedWord_thanNullPointerException_Returned() {
         Assertions.assertThrows(NullPointerException.class, () -> {
             String word = null;
-            fileAnalyzer.analyze(word, path);
+            streamContentAnalyzer.analyze(word, path);
         });
     }
 
@@ -164,7 +166,7 @@ public abstract class AbstractFileAnalyzerTest {
     @DisplayName("test Analyze Content when Searched Word Exist In Content")
     public void testAnalyzeContent_whenSearchedWordExistInContent() {
         String word = "duck";
-        FileInformation result = fileAnalyzer.analyze(path, word);
+        ContentInformation result = streamContentAnalyzer.analyze(path, word);
 
         int expectedCount = 3;
         int actualCount = result.getCount();
@@ -180,7 +182,7 @@ public abstract class AbstractFileAnalyzerTest {
     @DisplayName("test Analyze Content when Searched Word Is Not Exist In Content")
     public void testAnalyzeContent_whenSearchedWord_IsNotExistInContent() {
         String word = "notExistWord";
-        FileInformation result = fileAnalyzer.analyze(path, word);
+        ContentInformation result = streamContentAnalyzer.analyze(path, word);
 
         int actualCount = result.getCount();
         int expectedCount = 0;
